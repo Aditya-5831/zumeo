@@ -1,10 +1,14 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-import { cn } from "@/lib/utils";
 import Navbar from "@/components/Navbar";
+import { cn } from "@/lib/utils";
+import type { Metadata } from "next";
+import { Roboto } from "next/font/google";
+import "./globals.css";
+import Footer from "@/components/Footer";
 
-const inter = Inter({ subsets: ["latin"] });
+const font = Roboto({
+  subsets: ["latin"],
+  weight: ["100", "300", "400", "500", "700", "900"],
+});
 
 export const metadata: Metadata = {
   title: {
@@ -22,11 +26,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={cn(inter.className, "antialiased")}>
+      <body className={cn(font.className, "overflow-x-hidden antialiased")}>
         <Navbar />
         <main className="min-h-[calc(100vh-160px)] w-full bg-zinc-50">
           {children}
         </main>
+        <Footer />
       </body>
     </html>
   );
