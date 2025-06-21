@@ -1,9 +1,11 @@
+import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
+import { Toaster } from "sonner";
 import "./globals.css";
-import Footer from "@/components/Footer";
+import ReactQueryClientProvider from "@/providers/ReactQueryClientProvider";
 
 const font = Roboto({
   subsets: ["latin"],
@@ -26,13 +28,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={cn(font.className, "overflow-x-hidden antialiased")}>
-        <Navbar />
-        <main className="min-h-[calc(100vh-160px)] w-full bg-zinc-50">
-          {children}
-        </main>
-        <Footer />
-      </body>
+      <ReactQueryClientProvider>
+        <body className={cn(font.className, "overflow-x-hidden antialiased")}>
+          <Navbar />
+          <Toaster position="top-center" richColors />
+          <main className="min-h-[calc(100vh-160px)] w-full bg-zinc-50">
+            {children}
+          </main>
+          <Footer />
+        </body>
+      </ReactQueryClientProvider>
     </html>
   );
 }
