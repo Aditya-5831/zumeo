@@ -2,9 +2,9 @@ import Features from "@/components/home/Features";
 import MockResumeTemplateUI from "@/components/home/MockResumeTemplateUI";
 import Testimonals from "@/components/home/Testimonals";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import React from "react";
+import Link from "next/link";
 
 const Home = () => {
   return (
@@ -14,7 +14,7 @@ const Home = () => {
           {/* HERO SECTION */}
           <h1 className="text-center text-4xl leading-[1.2] font-semibold tracking-wide sm:text-[42px]">
             Build Your Perfect Resume with{" "}
-            <span className="text-primary">RUMEO</span> – <br />
+            <span className="text-primary">ZUMEO</span> – <br />
             Fast, Easy, and Tailored for Success!
           </h1>
           <p className="text-muted-foreground text-center text-sm">
@@ -24,10 +24,16 @@ const Home = () => {
             more interviews effortlessly
           </p>
 
-          <Button size={"xl"} className="group">
+          <Link
+            href={"/resumes"}
+            className={buttonVariants({
+              size: "xl",
+              className: "group",
+            })}
+          >
             Get started
             <ArrowRight className="size-4 duration-100 group-hover:translate-x-1" />
-          </Button>
+          </Link>
 
           {/* MOCK RESUME UI */}
           <MockResumeTemplateUI />
