@@ -8,20 +8,14 @@ export const signUpSchema = z.object({
     .min(8, { message: "Password must be 8 characters long" }),
 });
 
-export type signUpValues = z.infer<typeof signUpSchema>;
-
 export const signInSchema = z.object({
   email: z.string().email(),
   password: z.string().min(1, { message: "Password is required" }),
 });
 
-export type signInValues = z.infer<typeof signInSchema>;
-
 export const forgotPasswordSchema = z.object({
   email: z.string().email(),
 });
-
-export type forgotPasswordValues = z.infer<typeof forgotPasswordSchema>;
 
 export const resetPasswordSchema = z
   .object({
@@ -37,4 +31,7 @@ export const resetPasswordSchema = z
     path: ["confirmPassword"],
   });
 
+export type signInValues = z.infer<typeof signInSchema>;
+export type signUpValues = z.infer<typeof signUpSchema>;
+export type forgotPasswordValues = z.infer<typeof forgotPasswordSchema>;
 export type resetPasswordValues = z.infer<typeof resetPasswordSchema>;
