@@ -70,3 +70,54 @@ model Verification {
 
   @@map("verifications")
 }
+
+model Resume {
+  id              String           @id @default(cuid())
+  title           String?
+  description     String?
+  photoUrl        String?
+  colorHex        String           @default("#000000")
+  borderStyle     String           @default("squircle")
+  firstName       String?
+  lastName        String?
+  jobTitle        String?
+  city            String?
+  country         String?
+  phone           String?
+  email           String?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  skills          String[]
+  workExperiences WorkExperience[]
+  educations      Education[]
+
+  @@map("resumes")
+}
+
+model WorkExperience {
+  id          String   @id @default(cuid())
+  position    String?
+  company     String?
+  startDate   String?
+  endDate     String?
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  resumeId    String
+  resume      Resume   @relation(fields: [resumeId], references: [id])
+
+  @@map("work_experiences")
+}
+
+model Education {
+  id        String   @id @default(cuid())
+  degree    String?
+  institute String?
+  grade     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  resumeId  String
+  resume    Resume   @relation(fields: [resumeId], references: [id])
+
+  @@map("educations")
+}
