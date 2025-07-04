@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     absolute: "Zumeo",
   },
   description:
-    "Zumeo is the easiest way to create a proffessional resume that will help you land your dream job.",
+    "Zumeo is the easiest way to create a professional resume that will help you land your dream job.",
 };
 
 export default function RootLayout({
@@ -29,13 +29,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <ReactQueryClientProvider>
-        <body className={cn(font.className, "overflow-x-hidden antialiased")}>
-          <Navbar />
-          <Toaster position="top-center" richColors />
-          <main className="min-h-[calc(100vh-160px)] w-full bg-zinc-50">
-            {children}
-          </main>
-          <Footer />
+        <body
+          className={cn(
+            font.className,
+            "h-full w-full overflow-x-hidden antialiased",
+          )}
+        >
+          <div className="flex min-h-screen flex-col">
+            <Navbar />
+            <Toaster position="top-center" richColors />
+            <main className="min-h-[calc(100vh-160px)] w-full bg-zinc-50">
+              {children}
+            </main>
+            <Footer />
+          </div>
         </body>
       </ReactQueryClientProvider>
     </html>

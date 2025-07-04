@@ -60,7 +60,7 @@ const WorkExperienceForm = ({
   });
 
   return (
-    <Card className="md:w-md">
+    <Card className="w-full">
       <CardHeader>
         <CardTitle className="text-xl font-medium">Work experience</CardTitle>
       </CardHeader>
@@ -78,7 +78,7 @@ const WorkExperienceForm = ({
               ))}
               <Button
                 type="button"
-                size={"sm"}
+                size={"lg"}
                 onClick={() =>
                   append({
                     company: "",
@@ -154,8 +154,8 @@ const WorkExperienceItem = ({
               <FormLabel>Start date</FormLabel>
               <FormControl>
                 <Input
-                  value={field.value?.slice(0, 10) || ""}
-                  onChange={(e) => field.onChange(e.target.value)}
+                  {...field}
+                  value={field.value?.slice(0, 10)}
                   type="date"
                   placeholder="Tech nova"
                 />
@@ -172,8 +172,8 @@ const WorkExperienceItem = ({
               <FormLabel>End date</FormLabel>
               <FormControl>
                 <Input
-                  value={field.value?.slice(0, 10) || ""}
-                  onChange={(e) => field.onChange(e.target.value)}
+                  {...field}
+                  value={field.value?.slice(0, 10)}
                   type="date"
                   placeholder="Tech nova"
                 />

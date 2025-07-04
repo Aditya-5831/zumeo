@@ -21,7 +21,7 @@ const ResumeEditorFooter = ({
   )?.key;
 
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex w-full items-center justify-between">
       <div className="flex items-center gap-3">
         <Button
           disabled={!previousStep}
@@ -46,7 +46,7 @@ const ResumeEditorFooter = ({
         >
           Close
         </Link>
-        <p className="text-muted-foreground opacity-0">Saving...</p>
+        {/* <p className="text-muted-foreground opacity-0">Saving...</p> */}
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import React, { ReactNode } from "react";
 
 const MainLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="h-full w-full py-8">
+    <div className="h-full w-full py-5 md:py-8">
       <MaxWidthWrapper>{children}</MaxWidthWrapper>
     </div>
   );
