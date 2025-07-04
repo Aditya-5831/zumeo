@@ -48,7 +48,7 @@ const GeneralInfoForm = ({ resumeData, setResumeData }: ResumeEditorProps) => {
   }, [form, resumeData, setResumeData]);
 
   return (
-    <Card className="md:w-md">
+    <Card className="w-full">
       <CardHeader>
         <CardTitle className="text-xl font-medium">General info</CardTitle>
       </CardHeader>

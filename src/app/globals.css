@@ -120,11 +120,3 @@
     @apply bg-background text-foreground;
   }
 }
-
-.scorllbar_hidden {
-  overflow: auto;
-}
-
-.scorllbar_hidden::-webkit-scrollbar {
-  display: none;
-}

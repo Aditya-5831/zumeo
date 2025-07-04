@@ -52,7 +52,7 @@ const EducationForm = ({ resumeData, setResumeData }: ResumeEditorProps) => {
   });
 
   return (
-    <Card className="md:w-md">
+    <Card className="w-full">
       <CardHeader>
         <CardTitle className="text-xl font-medium">Education</CardTitle>
       </CardHeader>
@@ -69,7 +69,7 @@ const EducationForm = ({ resumeData, setResumeData }: ResumeEditorProps) => {
                 />
               ))}
               <Button
-                size={"sm"}
+                size={"lg"}
                 onClick={() =>
                   append({
                     degree: "",
@@ -132,7 +132,7 @@ const EducationItem = ({ form, index, remove }: EducationItemProps) => {
             <FormControl>
               <Input
                 {...field}
-                placeholder="National Institute of Technology, Trichy"
+                placeholder="National Technical University Germany"
               />
             </FormControl>
             <FormMessage />
@@ -161,8 +161,8 @@ const EducationItem = ({ form, index, remove }: EducationItemProps) => {
               <FormLabel>Start date</FormLabel>
               <FormControl>
                 <Input
-                  value={field.value?.slice(0, 10) || ""}
-                  onChange={(e) => field.onChange(e.target.value)}
+                  {...field}
+                  value={field.value?.slice(0, 10)}
                   type="date"
                   placeholder="Tech nova"
                 />
@@ -179,8 +179,8 @@ const EducationItem = ({ form, index, remove }: EducationItemProps) => {
               <FormLabel>End date</FormLabel>
               <FormControl>
                 <Input
-                  value={field.value?.slice(0, 10) || ""}
-                  onChange={(e) => field.onChange(e.target.value)}
+                  {...field}
+                  value={field.value?.slice(0, 10)}
                   type="date"
                   placeholder="Tech nova"
                 />

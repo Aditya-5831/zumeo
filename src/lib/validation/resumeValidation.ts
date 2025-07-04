@@ -18,8 +18,7 @@ export const personalInfoFormSchema = z.object({
     .refine(
       (file) => !file || file.size <= 1024 * 4 * 4,
       "File must be less than 4 MB",
-    )
-    .optional(),
+    ),
   firstName: optionalString,
   lastName: optionalString,
   jobTitle: optionalString,
@@ -44,15 +43,17 @@ export const workExperienceFormSchema = z.object({
 });
 
 export const educationFormSchema = z.object({
-  education: z.array(
-    z.object({
-      degree: optionalString,
-      institute: optionalString,
-      grade: optionalString,
-      startDate: optionalString,
-      endDate: optionalString,
-    }),
-  ),
+  education: z
+    .array(
+      z.object({
+        degree: optionalString,
+        institute: optionalString,
+        grade: optionalString,
+        startDate: optionalString,
+        endDate: optionalString,
+      }),
+    )
+    .optional(),
 });
 
 export const skillsFormSchema = z.object({
@@ -65,6 +66,8 @@ export const resumeSchema = z.object({
   ...workExperienceFormSchema.shape,
   ...educationFormSchema.shape,
   ...skillsFormSchema.shape,
+  colorHex: optionalString,
+  borderStyle: optionalString,
 });
 
 export type GeneralInfoFormValues = z.infer<typeof generalInfoFormSchema>;
@@ -72,4 +75,7 @@ export type PersonalInfoFormValues = z.infer<typeof personalInfoFormSchema>;
 export type WorkExperienceFormValues = z.infer<typeof workExperienceFormSchema>;
 export type EductionFormValues = z.infer<typeof educationFormSchema>;
 export type SkillsFormValues = z.infer<typeof skillsFormSchema>;
-export type ResumeValues = z.infer<typeof resumeSchema>;
+export type ResumeValues = Omit<z.infer<typeof resumeSchema>, "photo"> & {
+  id?: string;
+  photo?: File | string | null;
+};
