@@ -11,10 +11,29 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { ResumeEditorProps } from "@/lib/types";
+import { cn } from "@/lib/utils";
 import {
   workExperienceFormSchema,
   WorkExperienceFormValues,
 } from "@/lib/validation";
+import {
+  closestCenter,
+  DndContext,
+  DragEndEvent,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
+import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  useSortable,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { debounce } from "lodash";
 import { GripHorizontal } from "lucide-react";
@@ -54,10 +73,28 @@ const WorkExperienceForm = ({
     };
   }, [form, resumeData, setResumeData]);
 
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append, remove, move } = useFieldArray({
     control: form.control,
     name: "workExperiences",
   });
+
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    }),
+  );
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+
+    if (over && active.id !== over.id) {
+      const oldIndex = fields.findIndex((field) => field.id === active.id);
+      const newIndex = fields.findIndex((field) => field.id === over.id);
+      move(oldIndex, newIndex);
+      return arrayMove(fields, oldIndex, newIndex);
+    }
+  };
 
   return (
     <Card className="w-full">
@@ -68,14 +105,27 @@ const WorkExperienceForm = ({
         <Form {...form}>
           <form action="">
             <div className="flex flex-col gap-5">
-              {fields.map((field, index) => (
-                <WorkExperienceItem
-                  form={form}
-                  index={index}
-                  remove={remove}
-                  key={field.id}
-                />
-              ))}
+              <DndContext
+                onDragEnd={handleDragEnd}
+                sensors={sensors}
+                collisionDetection={closestCenter}
+                modifiers={[restrictToVerticalAxis]}
+              >
+                <SortableContext
+                  items={fields}
+                  strategy={verticalListSortingStrategy}
+                >
+                  {fields.map((field, index) => (
+                    <WorkExperienceItem
+                      key={field.id}
+                      id={field.id}
+                      form={form}
+                      index={index}
+                      remove={remove}
+                    />
+                  ))}
+                </SortableContext>
+              </DndContext>
               <Button
                 type="button"
                 size={"lg"}
@@ -101,23 +151,47 @@ const WorkExperienceForm = ({
 export default WorkExperienceForm;
 
 interface WorkExperienceItemProps {
+  id: string;
   form: UseFormReturn<WorkExperienceFormValues>;
   index: number;
   remove: (index: number) => void;
 }
 
 const WorkExperienceItem = ({
+  id,
   form,
   index,
   remove,
 }: WorkExperienceItemProps) => {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({
+    id,
+  });
+
   return (
-    <div className="space-y-3 border-b pb-4">
+    <div
+      className={cn(
+        "space-y-3 border-b pb-4",
+        isDragging && "relative z-50 cursor-grab shadow-xl",
+      )}
+      ref={setNodeRef}
+      style={{ transform: CSS.Transform.toString(transform), transition }}
+    >
       <div className="flex items-center justify-between">
         <span className="text-primary font-semibold">
           Experience {index + 1}
         </span>
-        <GripHorizontal className="text-primary size-5 cursor-grab" />
+        <GripHorizontal
+          className="text-primary size-5 cursor-grab focus:outline-none"
+          {...attributes}
+          {...listeners}
+        />
       </div>
       <FormField
         control={form.control}
