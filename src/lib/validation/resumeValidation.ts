@@ -12,11 +12,11 @@ export const personalInfoFormSchema = z.object({
     .custom<File | undefined>()
     .refine(
       (file) =>
-        !file || (file instanceof File && file.type.startsWith("image/*")),
+        !file || (file instanceof File && file.type.startsWith("image/")),
       "Must be an image file",
     )
     .refine(
-      (file) => !file || file.size <= 1024 * 4 * 4,
+      (file) => !file || file.size <= 1024 * 1024 * 4,
       "File must be less than 4 MB",
     ),
   firstName: optionalString,

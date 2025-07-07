@@ -7,11 +7,25 @@ import Breadcrumbs from "./Breadcrumbs";
 import ResumeEditorFooter from "./ResumeEditorFooter";
 import { steps } from "./steps";
 import ResumePreviewSection from "./ResumePreviewSection";
+import { useAutoSaveResume } from "@/hooks/useAutoSaveResume";
+import { useUnloadWarning } from "@/hooks/useUnloadWarning";
+import { ResumeServerData } from "@/lib/types";
+import { mapToResumeValues } from "@/lib/utils";
 
-const ResumeEditor = () => {
+interface ResumeEditorProps {
+  resumeToEdit: ResumeServerData | null;
+}
+
+const ResumeEditor = ({ resumeToEdit }: ResumeEditorProps) => {
   const searchParams = useSearchParams();
   const currentStep = searchParams.get("step") || steps[0].key;
-  const [resumeData, setResumeData] = useState<ResumeValues>({});
+  const [resumeData, setResumeData] = useState<ResumeValues>(
+    resumeToEdit ? mapToResumeValues(resumeToEdit) : {},
+  );
+
+  const { isAutoSaving, hasUnsavedChanges } = useAutoSaveResume(resumeData);
+
+  useUnloadWarning(hasUnsavedChanges);
 
   const setStep = (key: string) => {
     const newSearchParams = new URLSearchParams(searchParams);
@@ -46,6 +60,7 @@ const ResumeEditor = () => {
           <ResumeEditorFooter
             currentStep={currentStep}
             setCurrentStep={setStep}
+            isAutoSaving={isAutoSaving}
           />
         </div>
 

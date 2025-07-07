@@ -24,13 +24,11 @@ const ResumePreviewHeader = ({ resumeData }: ResumePreviewHeaderProps) => {
   const [imageSrc, setImageSrc] = useState(photo instanceof File ? "" : photo);
 
   useEffect(() => {
-    if (photo instanceof File) {
-      const objectUrl = URL.createObjectURL(photo);
-      setImageSrc(objectUrl);
-      return () => URL.revokeObjectURL(objectUrl);
-    }
+    const objectUrl = photo instanceof File ? URL.createObjectURL(photo) : "";
+    if (objectUrl) setImageSrc(objectUrl);
+    if (photo === null) setImageSrc("");
 
-    setImageSrc(typeof photo === "string" ? "" : photo);
+    return () => URL.revokeObjectURL(objectUrl);
   }, [photo]);
 
   return (
