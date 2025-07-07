@@ -6,9 +6,11 @@ import { steps } from "./steps";
 interface ResumeEditorFooterProps {
   currentStep: string;
   setCurrentStep: (step: string) => void;
+  isAutoSaving: boolean;
 }
 
 const ResumeEditorFooter = ({
+  isAutoSaving,
   currentStep,
   setCurrentStep,
 }: ResumeEditorFooterProps) => {
@@ -46,8 +48,8 @@ const ResumeEditorFooter = ({
         >
           Close
         </Link>
-        {/* <p className="text-muted-foreground opacity-0">Saving...</p> */}
       </div>
+      {isAutoSaving && <p className="text-muted-foreground">Saving...</p>}
     </div>
   );
 };
