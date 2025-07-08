@@ -1,7 +1,9 @@
 import { z } from "zod";
 
+// Reusable optional string schema that accepts "" or undefined
 const optionalString = z.string().trim().optional().or(z.literal(""));
 
+// Individual form schemas
 export const generalInfoFormSchema = z.object({
   title: optionalString,
   description: optionalString,
@@ -43,7 +45,7 @@ export const workExperienceFormSchema = z.object({
 });
 
 export const educationFormSchema = z.object({
-  education: z
+  educations: z
     .array(
       z.object({
         degree: optionalString,
@@ -60,6 +62,7 @@ export const skillsFormSchema = z.object({
   skills: z.array(z.string().trim()).optional(),
 });
 
+// Merged full resume schema
 export const resumeSchema = z.object({
   ...generalInfoFormSchema.shape,
   ...personalInfoFormSchema.shape,
@@ -70,12 +73,30 @@ export const resumeSchema = z.object({
   borderStyle: optionalString,
 });
 
+export const generateWorkExperienceSchema = z.object({
+  description: z
+    .string()
+    .trim()
+    .min(1, "Required")
+    .min(20, "Must be at least 20 characters."),
+});
+
+// Types
 export type GeneralInfoFormValues = z.infer<typeof generalInfoFormSchema>;
 export type PersonalInfoFormValues = z.infer<typeof personalInfoFormSchema>;
 export type WorkExperienceFormValues = z.infer<typeof workExperienceFormSchema>;
-export type EductionFormValues = z.infer<typeof educationFormSchema>;
+export type EducationFormValues = z.infer<typeof educationFormSchema>;
 export type SkillsFormValues = z.infer<typeof skillsFormSchema>;
+
 export type ResumeValues = Omit<z.infer<typeof resumeSchema>, "photo"> & {
   id?: string;
   photo?: File | string | null;
 };
+
+export type GenerateWorkExperienceInput = z.infer<
+  typeof generateWorkExperienceSchema
+>;
+
+export type WorkExperience = NonNullable<
+  z.infer<typeof workExperienceFormSchema>["workExperiences"]
+>[number];
