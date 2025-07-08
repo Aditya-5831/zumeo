@@ -11,7 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { ResumeEditorProps } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import { educationFormSchema, EductionFormValues } from "@/lib/validation";
+import { educationFormSchema, EducationFormValues } from "@/lib/validation";
 import {
   closestCenter,
   DndContext,
@@ -37,10 +37,10 @@ import { useEffect } from "react";
 import { useFieldArray, useForm, UseFormReturn } from "react-hook-form";
 
 const EducationForm = ({ resumeData, setResumeData }: ResumeEditorProps) => {
-  const form = useForm<EductionFormValues>({
+  const form = useForm<EducationFormValues>({
     resolver: zodResolver(educationFormSchema),
     defaultValues: {
-      education: resumeData.education || [],
+      educations: resumeData.educations || [],
     },
   });
 
@@ -55,7 +55,7 @@ const EducationForm = ({ resumeData, setResumeData }: ResumeEditorProps) => {
 
       setResumeData({
         ...resumeData,
-        education: values.education?.filter((edu) => edu !== undefined) || [],
+        educations: values.educations?.filter((edu) => edu !== undefined) || [],
       });
     });
 
@@ -67,7 +67,7 @@ const EducationForm = ({ resumeData, setResumeData }: ResumeEditorProps) => {
 
   const { append, fields, remove, move } = useFieldArray({
     control: form.control,
-    name: "education",
+    name: "educations",
   });
 
   const sensors = useSensors(
@@ -126,6 +126,7 @@ const EducationForm = ({ resumeData, setResumeData }: ResumeEditorProps) => {
                     grade: "",
                     startDate: "",
                     endDate: "",
+                    institute: "",
                   })
                 }
                 type="button"
@@ -144,7 +145,7 @@ export default EducationForm;
 
 interface EducationItemProps {
   id: string;
-  form: UseFormReturn<EductionFormValues>;
+  form: UseFormReturn<EducationFormValues>;
   index: number;
   remove: (index: number) => void;
 }
@@ -179,7 +180,7 @@ const EducationItem = ({ id, form, index, remove }: EducationItemProps) => {
       </div>
       <FormField
         control={form.control}
-        name={`education.${index}.degree`}
+        name={`educations.${index}.degree`}
         render={({ field }) => (
           <FormItem>
             <FormLabel>Degree</FormLabel>
@@ -195,7 +196,7 @@ const EducationItem = ({ id, form, index, remove }: EducationItemProps) => {
       />
       <FormField
         control={form.control}
-        name={`education.${index}.institute`}
+        name={`educations.${index}.institute`}
         render={({ field }) => (
           <FormItem>
             <FormLabel>Institute</FormLabel>
@@ -211,7 +212,7 @@ const EducationItem = ({ id, form, index, remove }: EducationItemProps) => {
       />
       <FormField
         control={form.control}
-        name={`education.${index}.grade`}
+        name={`educations.${index}.grade`}
         render={({ field }) => (
           <FormItem>
             <FormLabel>Grade</FormLabel>
@@ -225,7 +226,7 @@ const EducationItem = ({ id, form, index, remove }: EducationItemProps) => {
       <div className="grid gap-3 md:grid-cols-2">
         <FormField
           control={form.control}
-          name={`education.${index}.startDate`}
+          name={`educations.${index}.startDate`}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Start date</FormLabel>
@@ -234,7 +235,6 @@ const EducationItem = ({ id, form, index, remove }: EducationItemProps) => {
                   {...field}
                   value={field.value?.slice(0, 10)}
                   type="date"
-                  placeholder="Tech nova"
                 />
               </FormControl>
               <FormMessage />
@@ -243,7 +243,7 @@ const EducationItem = ({ id, form, index, remove }: EducationItemProps) => {
         />
         <FormField
           control={form.control}
-          name={`education.${index}.endDate`}
+          name={`educations.${index}.endDate`}
           render={({ field }) => (
             <FormItem>
               <FormLabel>End date</FormLabel>
@@ -252,7 +252,6 @@ const EducationItem = ({ id, form, index, remove }: EducationItemProps) => {
                   {...field}
                   value={field.value?.slice(0, 10)}
                   type="date"
-                  placeholder="Tech nova"
                 />
               </FormControl>
               <FormMessage />

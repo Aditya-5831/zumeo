@@ -39,6 +39,7 @@ import { debounce } from "lodash";
 import { GripHorizontal } from "lucide-react";
 import { useEffect } from "react";
 import { useFieldArray, useForm, UseFormReturn } from "react-hook-form";
+import GenerateWorkExperienceButton from "../GenerateWorkExperienceButton";
 
 const WorkExperienceForm = ({
   resumeData,
@@ -135,6 +136,7 @@ const WorkExperienceForm = ({
                     position: "",
                     endDate: "",
                     startDate: "",
+                    description: "",
                   })
                 }
               >
@@ -191,6 +193,13 @@ const WorkExperienceItem = ({
           className="text-primary size-5 cursor-grab focus:outline-none"
           {...attributes}
           {...listeners}
+        />
+      </div>
+      <div className="flex justify-center">
+        <GenerateWorkExperienceButton
+          onWorkExperienceGenerated={(exp) =>
+            form.setValue(`workExperiences.${index}`, exp)
+          }
         />
       </div>
       <FormField

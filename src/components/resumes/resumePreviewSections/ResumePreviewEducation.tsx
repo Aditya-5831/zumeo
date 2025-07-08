@@ -19,9 +19,9 @@ const formatedDate = (start?: string, end?: string) => {
 };
 
 const ResumePreviewEducation = ({
-  resumeData: { education, colorHex },
+  resumeData: { educations, colorHex },
 }: ResumePreviewEducationProps) => {
-  const nonEmptyEducations = education?.filter(isEducationNotEmpty);
+  const nonEmptyEducations = educations?.filter(isEducationNotEmpty);
 
   if (!nonEmptyEducations?.length) return null;
 

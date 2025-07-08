@@ -12,7 +12,7 @@ export const saveResume = async (values: ResumeValues) => {
     headers: await headers(),
   });
 
-  const { photo, workExperiences, education, ...resumeValues } =
+  const { photo, workExperiences, educations, ...resumeValues } =
     resumeSchema.parse(values);
 
   if (!session?.user) {
@@ -39,6 +39,7 @@ export const saveResume = async (values: ResumeValues) => {
     const blob = await put(`resume_photos/${photo.name}`, photo, {
       access: "public",
       contentType: photo.type,
+      allowOverwrite: true,
     });
 
     newPhotoUrl = blob.url;
@@ -65,7 +66,7 @@ export const saveResume = async (values: ResumeValues) => {
         },
         educations: {
           deleteMany: {},
-          create: education?.map((edu) => ({
+          create: educations?.map((edu) => ({
             ...edu,
             startDate: edu.startDate ? new Date(edu.startDate) : undefined,
             endDate: edu.endDate ? new Date(edu.endDate) : undefined,
@@ -87,7 +88,7 @@ export const saveResume = async (values: ResumeValues) => {
           })),
         },
         educations: {
-          create: education?.map((edu) => ({
+          create: educations?.map((edu) => ({
             ...edu,
             startDate: edu.startDate ? new Date(edu.startDate) : undefined,
             endDate: edu.endDate ? new Date(edu.endDate) : undefined,
