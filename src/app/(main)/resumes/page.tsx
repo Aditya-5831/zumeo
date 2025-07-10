@@ -1,9 +1,32 @@
+import ResumeItem from "@/components/resumes/ResumeItem";
 import { buttonVariants } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import db from "@/lib/db";
+import { ResumeDataInclude } from "@/lib/types";
 import { FilePlus2 } from "lucide-react";
+import { headers } from "next/headers";
 import Link from "next/link";
+import { auth } from "../../../lib/auth";
 
-const Resumes = () => {
+const Resumes = async () => {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session?.user) {
+    return null;
+  }
+
+  const resumes = await db.resume.findMany({
+    where: {
+      userId: session.user.id,
+    },
+    orderBy: {
+      updatedAt: "desc",
+    },
+    include: ResumeDataInclude,
+  });
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
@@ -19,14 +42,10 @@ const Resumes = () => {
         </Link>
       </div>
       <Separator />
-      <div className="flex flex-wrap">
-        <Link
-          href={"/resumes/create"}
-          className="hover:text-primary hover:border-primary flex min-h-48 min-w-36 flex-col items-center justify-center gap-3 rounded-md border-2 border-dashed border-gray-400 text-gray-400 transition-all"
-        >
-          <FilePlus2 className="size-14" strokeWidth={1} />
-          <span className="text-sm font-medium">Add Resume</span>
-        </Link>
+      <div className="flex grid-cols-2 flex-col gap-3 sm:grid md:grid-cols-3 lg:grid-cols-4">
+        {resumes.map((resume) => (
+          <ResumeItem key={resume.id} resume={resume} />
+        ))}
       </div>
     </div>
   );

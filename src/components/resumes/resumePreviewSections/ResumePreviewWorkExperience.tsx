@@ -38,7 +38,10 @@ const ResumePreviewWorkExperience = ({
           Work Experience
         </h2>
         {nonEmptyWorkExperience.map((exp, index) => (
-          <div key={index} className="flex flex-col space-y-2">
+          <div
+            key={index}
+            className="flex break-inside-avoid flex-col space-y-2"
+          >
             <div className="flex items-center justify-between">
               <span className="text-lg font-medium" style={{ color: colorHex }}>
                 {exp.position}
