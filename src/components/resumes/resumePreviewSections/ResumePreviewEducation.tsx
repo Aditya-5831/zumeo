@@ -36,7 +36,7 @@ const ResumePreviewEducation = ({
           Education
         </h2>
         {nonEmptyEducations.map((edu, index) => (
-          <div key={index} className="space-y-2">
+          <div key={index} className="break-inside-avoid space-y-2">
             <div className="flex items-center justify-between">
               <span className="text-lg font-medium" style={{ color: colorHex }}>
                 {edu.degree}

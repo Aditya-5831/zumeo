@@ -17,7 +17,7 @@ const ResumePreviewSkills = ({
         className="h-1.5 w-full bg-gray-900"
         style={{ backgroundColor: colorHex }}
       />
-      <div className="my-6 space-y-4">
+      <div className="my-6 break-inside-avoid space-y-4">
         <h2 className="text-2xl font-bold" style={{ color: colorHex }}>
           Skills
         </h2>
