@@ -23,6 +23,8 @@ const ResumePreviewHeader = ({ resumeData }: ResumePreviewHeaderProps) => {
 
   const [imageSrc, setImageSrc] = useState(photo instanceof File ? "" : photo);
 
+  console.log("imagesrc:", imageSrc);
+
   useEffect(() => {
     const objectUrl = photo instanceof File ? URL.createObjectURL(photo) : "";
     if (objectUrl) setImageSrc(objectUrl);
