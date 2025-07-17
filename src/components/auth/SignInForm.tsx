@@ -43,6 +43,7 @@ const SignInForm = () => {
       signIn.email({
         email: values.email,
         password: values.password,
+        callbackURL: "/resumes",
       }),
 
     onSuccess: (data) => {
