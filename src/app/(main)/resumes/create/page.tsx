@@ -2,7 +2,12 @@ import ResumeEditor from "@/components/resumes/ResumeEditor";
 import { auth } from "@/lib/auth";
 import db from "@/lib/db";
 import { ResumeDataInclude } from "@/lib/types";
+import { Metadata } from "next";
 import { headers } from "next/headers";
+
+export const metadata: Metadata = {
+  title: "Design your resume",
+};
 
 interface PageProps {
   searchParams: Promise<{ resumeId?: string }>;

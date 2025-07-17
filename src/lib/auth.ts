@@ -17,6 +17,7 @@ export const auth = betterAuth({
       hash: hashPassword,
       verify: verifyPassword,
     },
+
     sendResetPassword: async ({ url, user }) => {
       await sendEmail({
         to: user.email,

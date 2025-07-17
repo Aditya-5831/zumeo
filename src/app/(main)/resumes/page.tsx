@@ -1,12 +1,15 @@
+import CreateResumeButton from "@/components/resumes/CreateResumeButton";
 import ResumeItem from "@/components/resumes/ResumeItem";
-import { buttonVariants } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import db from "@/lib/db";
 import { ResumeDataInclude } from "@/lib/types";
-import { FilePlus2 } from "lucide-react";
 import { headers } from "next/headers";
-import Link from "next/link";
 import { auth } from "../../../lib/auth";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Your resumes",
+};
 
 const Resumes = async () => {
   const session = await auth.api.getSession({
@@ -17,29 +20,45 @@ const Resumes = async () => {
     return null;
   }
 
-  const resumes = await db.resume.findMany({
-    where: {
-      userId: session.user.id,
-    },
-    orderBy: {
-      updatedAt: "desc",
-    },
-    include: ResumeDataInclude,
-  });
+  const [resumes, user, resumeCount] = await Promise.all([
+    db.resume.findMany({
+      where: {
+        userId: session.user.id,
+      },
+      orderBy: {
+        updatedAt: "desc",
+      },
+      include: ResumeDataInclude,
+    }),
+    db.user.findUnique({
+      where: { id: session.user.id },
+      select: {
+        isPro: true,
+      },
+    }),
+    db.resume.count({
+      where: {
+        userId: session.user.id,
+      },
+    }),
+  ]);
+
+  if (!user) {
+    return null;
+  }
+
+  const canCreateResume = user.isPro || resumeCount < 1;
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-center">
         <div>
           <h1 className="text-2xl font-medium">Resumes</h1>
           <p className="text-muted-foreground text-sm">
             Create, edit and manage your resumes.
           </p>
         </div>
-        <Link href={"/resumes/create"} className={buttonVariants({})}>
-          <FilePlus2 />
-          Add Resume
-        </Link>
+        <CreateResumeButton canCreateResume={canCreateResume} />
       </div>
       <Separator />
       <div className="flex grid-cols-2 flex-col gap-3 sm:grid md:grid-cols-3 lg:grid-cols-4">

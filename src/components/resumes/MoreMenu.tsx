@@ -13,7 +13,6 @@ import {
 import { Button } from "../ui/button";
 import { Loader2, MoreVertical, Printer, Trash2 } from "lucide-react";
 import { toast } from "sonner";
-import { deleteResume } from "@/actions/deleteResume";
 import {
   Dialog,
   DialogContent,
@@ -22,6 +21,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "../ui/dialog";
+import { deleteResume } from "@/app/(main)/resumes/actions/deleteResume";
 
 const MoreMenu = ({ resumeId, onPrintClick }: MoreMenuProps) => {
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
@@ -33,7 +33,7 @@ const MoreMenu = ({ resumeId, onPrintClick }: MoreMenuProps) => {
           <Button
             variant="ghost"
             size="icon"
-            className="absolute top-0.5 right-0.5 focus:ring-0 focus:outline-none"
+            className="absolute top-0.5 right-0.5 focus-visible:ring-0 focus-visible:outline-none"
           >
             <MoreVertical className="size-4" />
           </Button>
@@ -102,7 +102,11 @@ const DeleteConfirmationDialog = ({
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <Button variant={"destructive"} onClick={handleDelete}>
+          <Button
+            disabled={isPending}
+            variant={"destructive"}
+            onClick={handleDelete}
+          >
             {isPending && (
               <Loader2 className="size-5 animate-spin text-white" />
             )}

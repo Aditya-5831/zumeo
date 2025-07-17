@@ -15,7 +15,10 @@ const Navbar = () => {
       <MaxWidthWrapper>
         <div className="flex h-full w-full items-center justify-between">
           {/* LOGO */}
-          <Link href={"/"} className="flex items-center gap-2">
+          <Link
+            href={"/"}
+            className="flex items-center gap-2 focus-visible:outline-none"
+          >
             <Image src={"/logo.png"} alt="logo" width={40} height={40} />
             <span className="hidden text-lg font-bold md:block">zumeo</span>
           </Link>
