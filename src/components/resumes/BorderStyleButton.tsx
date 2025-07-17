@@ -1,21 +1,20 @@
-import usePremiumModal from "@/hooks/usePremiumModal";
-import { useUserStore } from "@/hooks/useUserStore";
-import { Circle, Square, Squircle } from "lucide-react";
+import React from "react";
 import { Button } from "../ui/button";
+import { Circle, Square, Squircle } from "lucide-react";
+import { useUserStore } from "@/hooks/useUserStore";
+import usePremiumModal from "@/hooks/usePremiumModal";
 
 export const BorderStyles = {
   SQUARE: "square",
   CIRCLE: "circle",
   SQUIRCLE: "squircle",
-} as const;
+};
 
 const borderStyles = Object.values(BorderStyles);
 
-type BorderStyle = (typeof borderStyles)[number];
-
 interface BorderStyleButtonProps {
-  borderStyle: BorderStyle | undefined;
-  onChange: (borderStyle: BorderStyle) => void;
+  borderStyle: string | undefined;
+  onChange: (borderStyle: string) => void;
 }
 
 const BorderStyleButton = ({
@@ -31,18 +30,17 @@ const BorderStyleButton = ({
       return;
     }
 
-    const currentIndex = borderStyle ? borderStyles.indexOf(borderStyle) : -1;
+    const currentIndex = borderStyle ? borderStyles.indexOf(borderStyle) : 0;
     const nextIndex = (currentIndex + 1) % borderStyles.length;
     onChange(borderStyles[nextIndex]);
   };
 
-  const IconMap = {
-    [BorderStyles.SQUARE]: Square,
-    [BorderStyles.CIRCLE]: Circle,
-    [BorderStyles.SQUIRCLE]: Squircle,
-  };
-
-  const Icon = IconMap[borderStyle as keyof typeof IconMap] ?? Square;
+  const Icon =
+    borderStyle === "square"
+      ? Square
+      : borderStyle === "circle"
+        ? Circle
+        : Squircle;
 
   return (
     <Button onClick={handleClick}>
