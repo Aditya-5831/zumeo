@@ -51,7 +51,7 @@ const SignUpForm = () => {
       } else {
         form.reset();
         toast.success("Account created successfully!");
-        router.push("/resumes");
+        router.push("/sign-in");
       }
     },
   });
