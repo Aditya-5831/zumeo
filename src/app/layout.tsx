@@ -29,12 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <ReactQueryClientProvider>
-        <body
-          className={cn(
-            font.className,
-            "h-full w-full overflow-x-hidden antialiased",
-          )}
-        >
+        <body className={cn(font.className, "h-full w-full antialiased")}>
           <div className="flex min-h-screen flex-col">
             <Navbar />
             <Toaster position="top-center" richColors />

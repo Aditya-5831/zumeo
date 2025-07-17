@@ -3,13 +3,16 @@ import {
   generateWorkExperienceSchema,
   WorkExperience,
 } from "@/lib/validation";
-import React, { useState } from "react";
-import { Button } from "../ui/button";
-import { Loader2, WandSparklesIcon } from "lucide-react";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2, WandSparklesIcon } from "lucide-react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { generateWorkExperience } from "@/actions/generateWorkExperience";
+import { Button } from "../ui/button";
+
+import { generateWorkExperience } from "@/app/(main)/resumes/actions/generateWorkExperience";
+import usePremiumModal from "@/hooks/usePremiumModal";
+import { useUserStore } from "@/hooks/useUserStore";
 import {
   Dialog,
   DialogContent,
@@ -28,9 +31,21 @@ const GenerateWorkExperienceButton = ({
   onWorkExperienceGenerated,
 }: GenerateWorkExperienceButtonProps) => {
   const [showInputDialog, setShowInputDialog] = useState(false);
+
+  const { isPro } = useUserStore();
+  const { setOpen } = usePremiumModal();
+
+  const handleClick = () => {
+    if (!isPro) {
+      setOpen(true);
+      return;
+    }
+    setShowInputDialog(true);
+  };
+
   return (
     <>
-      <Button type="button" onClick={() => setShowInputDialog(true)}>
+      <Button type="button" onClick={handleClick}>
         <WandSparklesIcon className="size-4" />
         Smart fill (AI)
       </Button>

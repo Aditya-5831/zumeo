@@ -1,4 +1,4 @@
-import { saveResume } from "@/actions/saveResume";
+import { saveResume } from "@/app/(main)/resumes/actions/saveResume";
 import { fileReplacer } from "@/lib/utils";
 import { ResumeValues } from "@/lib/validation";
 import { useSearchParams } from "next/navigation";

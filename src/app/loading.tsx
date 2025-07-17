@@ -3,7 +3,7 @@ import React from "react";
 
 const Loading = () => {
   return (
-    <div className="flex h-screen flex-col items-center justify-center gap-2">
+    <div className="flex min-h-screen flex-col items-center justify-center gap-2">
       <Loader2
         className="text-primary size-8 animate-spin"
         aria-label="Loading spinner"
