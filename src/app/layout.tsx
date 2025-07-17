@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   openGraph: {
     images: [
       {
-        url: "/zumeo-ss.png",
+        url: "https://zumeo.vercel.app/zumeo-ss.png",
         width: 1200,
         height: 630,
         alt: "App preview",
