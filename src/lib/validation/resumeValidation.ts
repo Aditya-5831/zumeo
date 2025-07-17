@@ -1,4 +1,3 @@
-import { BorderStyles } from "@/components/resumes/BorderStyleButton";
 import { z } from "zod";
 
 // Reusable optional string schema that accepts "" or undefined
@@ -63,12 +62,6 @@ export const skillsFormSchema = z.object({
   skills: z.array(z.string().trim()).optional(),
 });
 
-const borderStyleEnum = z.enum([
-  BorderStyles.SQUARE,
-  BorderStyles.CIRCLE,
-  BorderStyles.SQUIRCLE,
-]);
-
 // Merged full resume schema
 export const resumeSchema = z.object({
   ...generalInfoFormSchema.shape,
@@ -77,7 +70,7 @@ export const resumeSchema = z.object({
   ...educationFormSchema.shape,
   ...skillsFormSchema.shape,
   colorHex: optionalString,
-  borderStyle: borderStyleEnum.optional(),
+  borderStyle: optionalString,
 });
 
 export const generateWorkExperienceSchema = z.object({
