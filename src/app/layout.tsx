@@ -19,6 +19,17 @@ export const metadata: Metadata = {
   },
   description:
     "Zumeo is the easiest way to create a professional resume that will help you land your dream job.",
+
+  openGraph: {
+    images: [
+      {
+        url: "/zumeo-ss.png",
+        width: 1200,
+        height: 630,
+        alt: "App preview",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
