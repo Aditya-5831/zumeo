@@ -1,36 +1,87 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Zumeo — Resume Builder
+
+Zumeo is a web-based resume builder designed to help users create and customize a professional resume through a simple interface, live preview, and PDF export.
+
+**Live Demo:** https://zumeo.vercel.app/
+
+## Features
+
+- **Resume Editing** — Enter and update personal details, skills, and other resume information.
+- **Live Preview** — Preview resume changes while editing.
+- **Resume Template** — Create a resume using the available template.
+- **PDF Export** — Download the completed resume as a PDF.
+- **Responsive Interface** — Use the application across supported screen sizes.
+
+*Note: Include each feature above only if it is implemented and working in the current version.*
+
+## Tech Stack
+
+- Next.js
+- React
+- Tailwind CSS
+- JavaScript
 
 ## Getting Started
 
-First, run the development server:
+Follow these steps to run the project locally.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Prerequisites
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Node.js installed on your computer
+- npm, pnpm, or another compatible package manager
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Installation
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Clone the repository:
 
-## Learn More
+   ```bash
+   git clone https://github.com/Aditya-5831/zumeo.git
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+2. Navigate to the project directory:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   ```bash
+   cd zumeo
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3. Install the dependencies:
 
-## Deploy on Vercel
+   ```bash
+   npm install
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+4. Start the development server:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   ```bash
+   npm run dev
+   ```
+
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+*If the project uses pnpm, use `pnpm install` and `pnpm dev` instead. Follow the package manager specified by your repository.*
+
+## Project Purpose
+
+Zumeo was created as a personal web development project to practise building a user-facing application with React and Next.js. The project focuses on resume customization, interactive previews, and PDF export.
+
+## Future Improvements
+
+- Add more resume templates.
+- Improve form validation and error handling.
+- Enhance resume customization options.
+- Improve accessibility and responsive design.
+
+## Author
+
+**Aditya Shiyale**
+
+- GitHub: https://github.com/Aditya-5831
+- Portfolio: https://adityas-personal-portfolio.vercel.app/
+
+## License
+
+This project is available for viewing and learning. No license is granted for reuse unless a license is added to the repository.
+
+---
+
+Built with Next.js and React.
